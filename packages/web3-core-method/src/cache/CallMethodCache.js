@@ -22,6 +22,13 @@
 
 export default class CallMethodCache {
     /**
+     * @constructor
+     */
+    constructor() {
+        this.localStorageCleaned = false;
+    }
+
+    /**
      * Get cached method from localStorage
      *
      * @method getItem
@@ -48,17 +55,16 @@ export default class CallMethodCache {
      * @param {any} response
      */
     addItem(method, response) {
-        const now = new Date().getTime();
-        const oneMonth = 2592000000;
+        let methodCalls = JSON.parse(window.localStorage.getItem('Web3Calls'));
 
-        const filteredMethodCalls = this.methodCalls.filter(methodCall => {
-            return methodCall.timestamp >= (now - oneMonth);
-        });
+        if (!this.localStorageCleaned) {
+            methodCalls = this.clean(methodCalls);
+        }
 
         window.localStorage.setItem(
             'Web3Calls',
             JSON.stringify(
-                filteredMethodCalls.unshift(
+                methodCalls.unshift(
                     {
                         method: method,
                         response: response,
@@ -67,5 +73,27 @@ export default class CallMethodCache {
                 )
             )
         );
+    }
+
+    /**
+     * Removes all the old cached items
+     *
+     * @param {Array} methodCalls
+     *
+     * @returns {Array}
+     */
+    clean(methodCalls) {
+        const now = new Date().getTime();
+        const oneMonth = 2592000000;
+
+        if (!methodCalls) {
+            methodCalls = JSON.parse(window.localStorage.getItem('Web3Calls'));
+        }
+
+        this.localStorageCleaned = true;
+
+        return methodCalls.filter(methodCall => {
+            return methodCall.timestamp >= (now - oneMonth);
+        });
     }
 }
