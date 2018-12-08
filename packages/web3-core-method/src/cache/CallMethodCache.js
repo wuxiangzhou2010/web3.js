@@ -61,7 +61,8 @@ export default class CallMethodCache {
                 filteredMethodCalls.push(
                     {
                         method: method,
-                        response: response
+                        response: response,
+                        timestamp: now
                     }
                 )
             )
