@@ -58,7 +58,7 @@ export default class CallMethodCache {
         window.localStorage.setItem(
             'Web3Calls',
             JSON.stringify(
-                filteredMethodCalls.push(
+                filteredMethodCalls.unshift(
                     {
                         method: method,
                         response: response,
