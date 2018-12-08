@@ -46,7 +46,7 @@ export default class CachedCallMethodCommand extends CallMethodCommand {
      *
      * @returns {Observable}
      */
-    async sendToNode(moduleInstance, method) {
+    sendToNode(moduleInstance, method) {
         return new Observable.create(async observer => {
             const cachedResponse = this.callMethodCache.getItem(method);
             if (cachedResponse) {
