@@ -1,7 +1,7 @@
 /* jshint ignore:start */
 Package.describe({
   name: 'mubiale:web3',
-  version: '0.0.2',
+  version: '1.0.3',
   summary: 'Ethereum JavaScript API, middleware to talk to a ethreum node over RPC',
   git: 'https://github.com/wuxiangzhou2010/web3.js',
   // By default, Meteor will default to using README.md for documentation.
